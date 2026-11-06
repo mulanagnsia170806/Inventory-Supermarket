@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1B6B63">
+  <title>HiFive Inventory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- LOGIN / REGISTER -->
+  <section id="login">
+    <div class="lp">
+      <img src="assets/logo/hifive-logo.svg" alt="HiFive Inventory" style="width:390px;max-width:100%">
+      <h1>A Better Way to<br>Manage Your Stock.</h1>
+      <p>Kelola data barang, pantau stok gudang, dan proses transaksi dalam satu sistem yang rapi.</p>
+      <div class="chips"><span>✓ Stock monitoring</span><span>✓ Simple workflow</span></div>
+      <small>Manage stock. Move smart.</small>
+    </div>
+
+    <div class="card lf auth-card">
+      <div id="loginPanel" class="auth-panel">
+        <div class="eyebrow">Welcome back</div>
+        <h2>Masuk ke akun Anda</h2>
+        <p class="sub">Silakan masuk untuk melanjutkan ke workspace HiFive Inventory.</p>
+        <form id="loginForm" novalidate>
+          <div id="loginError" class="auth-error" role="alert"></div>
+          <label for="loginUsername">Username</label>
+          <input class="in" id="loginUsername" name="username" placeholder="Masukkan username" autocomplete="username" required>
+          <label for="loginPassword">Password</label>
+          <div class="pw">
+            <input class="in" id="loginPassword" name="password" type="password" placeholder="Masukkan password" autocomplete="current-password" required>
+            <button type="button" id="loginEye" data-i="eye" aria-label="Tampilkan password"></button>
+          </div>
+          <div class="rem" style="margin-top:-6px"><input type="checkbox" id="rememberMe"><label for="rememberMe" style="margin:0;font-weight:400;font-size:11px;color:var(--muted)">Ingat saya</label></div>
+          <button class="btn w" type="submit">Masuk ke Dashboard <span data-i="arrow"></span></button>
+        </form>
+        <div class="demo">
+          <b>Akun demo untuk pengujian</b>
+          <span>admin / admin123 &nbsp; • &nbsp; gudang / gudang123 &nbsp; • &nbsp; kasir / kasir123</span>
+        </div>
+        <div class="auth-switch">Belum punya akun? <button type="button" id="showRegister">Buat Akun</button></div>
+        <div class="foot">HiFive Inventory · A Better Way to Manage Your Stock.</div>
+      </div>
+
+      <div id="registerPanel" class="auth-panel hide">
+        <div class="eyebrow">Get started</div>
+        <h2>Buat akun HiFive</h2>
+        <p class="sub">Daftarkan akun baru dan pilih akses sesuai peran Anda.</p>
+        <form id="registerForm" novalidate>
+          <div id="registerError" class="auth-error" role="alert"></div>
+          <label for="registerUsername">Username</label>
+          <input class="in" id="registerUsername" name="username" placeholder="Contoh: ara.inventory" autocomplete="username" required minlength="3">
+          <label for="registerRole">Role / Hak Akses</label>
+          <select class="in" id="registerRole" name="role" required>
+            <option value="admin">Admin</option>
+            <option value="gudang">Gudang</option>
+            <option value="kasir">Kasir</option>
+          </select>
+          <p class="role-hint">Role akan ditampilkan pada profil setelah berhasil login.</p>
+          <div class="form-grid">
+            <div>
+              <label for="registerPassword">Password</label>
+              <input class="in" id="registerPassword" name="password" type="password" placeholder="Minimal 6 karakter" autocomplete="new-password" required minlength="6">
+            </div>
+            <div>
+              <label for="registerConfirm">Konfirmasi Password</label>
+              <input class="in" id="registerConfirm" name="confirm" type="password" placeholder="Ulangi password" autocomplete="new-password" required>
+            </div>
+          </div>
+          <button class="btn w" type="submit">Buat Akun <span data-i="arrow"></span></button>
+        </form>
+        <div class="auth-switch">Sudah punya akun? <button type="button" id="showLogin">Masuk di sini</button></div>
+        <div class="foot">HiFive Inventory · A Better Way to Manage Your Stock.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION -->
+  <div id="app" class="hide">
+    <aside id="side">
+      <div class="brand">
+        <button class="sidebar-toggle" id="sideToggle" type="button" aria-label="Sembunyikan atau tampilkan menu" title="Sembunyikan / tampilkan menu"><span data-i="menu"></span></button>
+        <img class="brand-full" src="assets/logo/hifive-logo.svg" alt="HiFive Inventory">
+        <img class="brand-mark" src="assets/mascots/01_hai_wave.png" alt="HiFive mascot">
+      </div>
+      <nav id="nav" aria-label="Navigasi utama"></nav>
+      <div class="sidebar-bottom">
+        <div class="profile-dock" id="sideProfileDock">
+          <div class="me">
+            <button class="profile-summary" id="sideProfileToggle" type="button" aria-expanded="false">
+              <span class="av" id="sideAvatar">U</span>
+              <span class="profile-copy"><b id="sideUsername">Username</b><small id="sideRole">Admin</small></span>
+            </button>
+            <button class="profile-chevron" id="sideProfileChevron" type="button" aria-label="Tampilkan opsi profil" aria-expanded="false"><span data-i="chev"></span></button>
+          </div>
+          <div class="profile-options" id="sideProfileOptions">
+            <button type="button" id="sideProfileInfo"><span data-i="user"></span> Profil Saya</button>
+          </div>
+        </div>
+        <button class="sidebar-logout" id="logoutSide" type="button">
+          <span data-i="logout"></span><span class="logout-label">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <button class="menu-btn" id="mobileMenuToggle" type="button" aria-label="Buka menu"><span data-i="menu"></span></button>
+        <div class="sr"><span data-i="search"></span><input id="globalSearch" placeholder="Cari barang, kategori, supplier, atau transaksi..." aria-label="Pencarian global"></div>
+        <div class="hr">
+          <div class="notification-wrap" id="notificationWrap">
+            <button class="notification-trigger" id="notificationButton" type="button" aria-label="Buka notifikasi" aria-expanded="false" aria-controls="notificationPanel">
+              <span class="bell"><span data-i="bell"></span><b id="notificationCount">3</b></span>
+            </button>
+            <section class="notification-panel" id="notificationPanel" aria-label="Notifikasi" hidden>
+              <div class="notification-head">
+                <div><strong>Notifikasi</strong><small>Informasi terbaru HiFive Inventory</small></div>
+                <button type="button" id="markNotificationsRead">Tandai dibaca</button>
+              </div>
+              <button class="notification-item" type="button" data-notification-target="barang">
+                <span class="notification-symbol pink"><span data-i="box"></span></span>
+                <span class="notification-copy"><b>Stok Mi Instan Goreng menipis</b><small>Tersisa 5 pcs · 2 jam lalu</small></span>
+                <span class="notification-unread"></span>
+              </button>
+              <button class="notification-item" type="button" data-notification-target="barang-masuk">
+                <span class="notification-symbol mint"><span data-i="inbox"></span></span>
+                <span class="notification-copy"><b>Barang baru telah diterima</b><small>100 pcs dari supplier · 3 jam lalu</small></span>
+                <span class="notification-unread"></span>
+              </button>
+              <button class="notification-item" type="button" data-notification-target="pesanan-penjualan">
+                <span class="notification-symbol peach"><span data-i="cash"></span></span>
+                <span class="notification-copy"><b>Aktivitas penjualan hari ini</b><small>Mencapai 250 transaksi · 5 jam lalu</small></span>
+                <span class="notification-unread"></span>
+              </button>
+              <div class="notification-foot"><button type="button" id="viewAllNotifications">Lihat semua aktivitas <span data-i="arrow"></span></button></div>
+            </section>
+          </div>
+          <div class="date"><span data-i="cal"></span><span id="todayDate">06 November 2026</span></div>
+          <div class="profile-top" id="profileTop">
+            <button class="profile-top-btn" id="profileTopButton" type="button" aria-expanded="false" aria-label="Menu profil">
+              <span class="av" id="topAvatar" style="width:34px;height:34px">U</span>
+              <span class="profile-top-name" id="topUsername">Username</span>
+              <span data-i="chev"></span>
+            </button>
+            <div class="profile-top-menu" id="profileTopMenu">
+              <div class="profile-menu-head"><b id="menuUsername">Username</b><span id="menuRole">Admin</span></div>
+              <button type="button" id="topProfileInfo">Profil Saya</button>
+              <button type="button" id="logoutTop">Keluar dari Akun</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div id="view" tabindex="-1"></div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" id="modalBackdrop" role="presentation">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Tambah Data</h3>
+      <p id="modalDescription">Isi informasi berikut untuk menambahkan data.</p>
+      <form id="recordForm">
+        <div id="modalFields"></div>
+        <div class="modal-actions">
+          <button class="btn secondary" type="button" id="cancelModal">Batal</button>
+          <button class="btn" type="submit">Simpan Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
